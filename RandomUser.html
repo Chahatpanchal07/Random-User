@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random User</title>
+    <style>
+     *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    background:#111827;
+}
+
+.container{
+    width:400px;
+    background:#1f2937;
+    border-radius:20px;
+    padding:35px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,.4);
+}
+
+.container h1{
+    color:#fff;
+    margin-bottom:25px;
+    font-size:28px;
+}
+
+#user{
+    background:#2d3748;
+    border-radius:15px;
+    padding:30px;
+    min-height:320px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    transition:.4s;
+}
+
+#user:hover{
+    transform:translateY(-8px);
+}
+
+#user img{
+    width:128px;
+    height:128px;
+    border-radius:50%;
+    object-fit:cover;
+    border:6px solid #3b82f6;
+    margin-bottom:20px;
+    transition:.5s;
+}
+
+#user img:hover{
+    transform:scale(1.08);
+}
+
+#user h1{
+    color:white;
+    font-size:26px;
+    margin-bottom:10px;
+}
+
+#user p{
+    color:#bdbdbd;
+    font-size:16px;
+}
+
+button{
+    margin-top:25px;
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#3b82f6;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#2563eb;
+    letter-spacing:1px;
+    transform:scale(1.03);
+}
+
+button:active{
+    transform:scale(.97);
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👤Random User</h1>
+        <div id="user">
+
+        </div>
+        <button onclick="fetchdata()">Get User</button>
+    </div>
+    <script>
+        let userContainer=document.getElementById("user")
+        async function fetchdata() {
+            try{
+               let response = await fetch('https://randomuser.me/api/');
+                let data= await response.json();
+               let userData = data.results[0];
+               console.log(userData)
+                let name = `${userData.name.title} ${userData.name.first} ${userData.name.last}`;
+                let image=userData.picture.large;
+               userContainer.innerHTML = `<img src="${image}"> <h1>${name}</h1>`;
+            }
+            catch(err){
+                console.log(err)
+            }
+            
+        }
+    </script>
+    
+</body>
+</html>
